@@ -1,0 +1,17 @@
+h1 {
+	width: 100%;
+	text-align: center;
+}
+
+table {
+	background: black;
+	text-align: center;
+	margin: auto;
+}
+td, th {
+	background: white;
+	padding: 2px 3px;
+}
+table, th, td {
+   border: 1px solid black;
+}
