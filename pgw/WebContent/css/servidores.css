@@ -1,0 +1,26 @@
+h1 {
+	width: 100%;
+	float:left;
+	text-align: center;
+}
+table {
+  width:100%;
+  float: left;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th {
+  background: #99f;
+}
+
+td > * {
+  float:left;
+}
+
+td input {
+  margin: 3px;
+}

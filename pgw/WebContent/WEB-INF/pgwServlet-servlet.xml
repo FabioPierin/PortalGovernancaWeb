@@ -60,6 +60,15 @@
 		<property name="supportedMediaTypes" value="application/json" />
 	</bean>
 	
+<!-- 	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"> -->
+<!-- 	    <property name="basenames"> -->
+<!-- 	        <list> -->
+<!-- 	            <value>WEB-INF/resources/yourcontentLabels</value> -->
+<!-- 	            <value>WEB-INF/resources/landingLabels</value> -->
+<!-- 	        </list> -->
+<!-- 	    </property> -->
+<!-- 	</bean> -->
+	
 	<bean id="messageSource"
 	    class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 	    <property name="basename" value="WEB-INF/resources/messages" />
@@ -73,6 +82,10 @@
 	 
 	<bean class="org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver" id="localeResolver">
 	</bean>
+<!-- 	<bean id="localeResolver" -->
+<!-- 	    class="org.springframework.web.servlet.i18n.CookieLocaleResolver"> -->
+<!-- 	    <property name="defaultLocale" value="en"/> -->
+<!-- 	</bean> -->
 	 
 	<bean id="handlerMapping"
 	    class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">

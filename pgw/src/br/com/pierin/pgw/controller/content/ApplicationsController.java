@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import br.com.pierin.pgw.bean.ApplicationBean;
 import br.com.pierin.pgw.controller.AbstractController;
@@ -22,6 +24,15 @@ public class ApplicationsController extends AbstractController implements Serial
 
 	static Logger LOG = Logger.getLogger(ApplicationsController.class);
 
+	@RequestMapping(value = "/aplicacoes", method = RequestMethod.GET)
+	public ModelAndView aplicacoes(HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		this.jsonView.noCache(response);
+
+		return new ModelAndView("aplicacoes", model);
+
+	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/applications/all")
 	public Object getAllApplications(HttpServletResponse response) {
