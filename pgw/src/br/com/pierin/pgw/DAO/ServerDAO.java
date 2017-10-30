@@ -32,6 +32,7 @@ public class ServerDAO implements Serializable {
 			stmt.setString(4, server.getUser());
 			stmt.setString(5, server.getPassword());
 			inserted = stmt.execute();
+			inserted = true;
 		} catch (ClassNotFoundException e) {
 			LOG.error("Error saving data on DB", e);
 			e.printStackTrace();
@@ -62,11 +63,12 @@ public class ServerDAO implements Serializable {
 			rs = stmt.executeQuery();
 			while (rs.next()){
 				ServerBean server = new ServerBean();
+				server.setId(rs.getInt("ID"));
 				server.setUrl(rs.getString("IP"));
-				server.setServerName("SERVER_NAME");
-				server.setPort("PORT");
-				server.setUser("ADM_USER");
-				server.setPassword("ADM_PASSWORD");
+				server.setServerName(rs.getString("SERVER_NAME"));
+				server.setPort(rs.getString("PORT"));
+				server.setUser(rs.getString("ADM_USER"));
+				server.setPassword(rs.getString("ADM_PASSWORD"));
 				serversList.add(server);
 			}
 		} catch (ClassNotFoundException e) {

@@ -3,8 +3,17 @@ package br.com.pierin.pgw.bean;
 import java.io.Serializable;
 
 public class ServerBean implements Serializable{
-	private static final long serialVersionUID = -1832877155170665768L;
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7581582379162306548L;
+
+	/**
+	 * ID column 
+	 */
+	private Integer id;
+	
 	/**
 	 * IP column 
 	 */
@@ -77,6 +86,12 @@ public class ServerBean implements Serializable{
 	 */
 	public void setServerName(String serverName) {
 		this.serverName = serverName;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	} 
 	
 	

@@ -26,6 +26,7 @@ div.loading {
 	opacity: 0.4;
 }
 div.loading img{
-	opacity:1;
-	margin-top:200px
+	opacity: 1 !important;
+	margin-top:200px;
+	z-index:1000;
 }

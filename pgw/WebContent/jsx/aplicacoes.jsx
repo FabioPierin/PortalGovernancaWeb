@@ -1,19 +1,20 @@
+var loaded = false;
 
-class Voltar  extends React.Component {
+var varApplicationsTable = "";
+
+class ManageServer  extends React.Component {
   constructor(props) {
     super(props);
   }
   
   render(){
     return (
-        <div class="button">
-            <a href="/PGW/servidores" class="button">Gerenciar servidores</a>
+        <div className="button">
+            <a href="/PGW/servidores" className="button">Gerenciar servidores</a>
         </div>
     );
   }
 }
-
-var varApplicationsTable = "";
 
 class LoadApplications extends React.Component {
  
@@ -23,21 +24,34 @@ class LoadApplications extends React.Component {
   }
 
   render() {
+	  let loading;
+	  if (!loaded){
+		  loading = (
+			  <div className="loading">
+			  	<img src="/PGW/css/images/loading.gif" />
+			  </div>
+		  ) 
+	  }
     return (
 	<div>
+		{ loading }
 		<h1>Portal de Governança</h1>
 		<table>
-			<tr>
-				<th>Status</th>
-				<th>Nome aplicação</th>
-				<th>Data ativação/desativação</th>
-				<th>Descrição</th>
-				<th>URL de acesso</th>
-				<th>Console administrativo</th>
-			</tr>
-		{varApplicationsTable}
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Nome aplicação</th>
+					<th>Data ativação/desativação</th>
+					<th>Descrição</th>
+					<th>URL de acesso</th>
+					<th>Console administrativo</th>
+				</tr>
+			</thead>
+			<tbody>
+				{varApplicationsTable}
+			</tbody>
 		</table>
-		<Voltar />
+		<ManageServer />
 	</div>
     );
   }
@@ -53,25 +67,24 @@ function getApplications(){
 		type: "GET",
 		dataType: "json",
 		success: function (data){
-			var apps = data.apps;
+			var apps = data.appList;
 			if (apps == null) {
-				alert("Server returned null");
+				alert(data.error);
+			}else {
+				const applications = apps.map((app) =>
+				<tr key={app.id.toString()}>
+					<td>{app.currentState}</td>
+					<td>{app.name}</td>
+					<td>{app.inclusionDate}</td>
+					<td>{app.description}</td>
+					<td><a target="_blanc" href='{app.server.url}:{app.port}{app.uri}'>{app.server.url}:{app.port}{app.uri}</a></td>
+					<td><a target="_blanc" href='{app.server.url}:{app.server.port}'>{app.server.url}:{app.server.port}</a></td>
+				</tr>
+				);
+				
+				varApplicationsTable = applications;
 			}
-			
-			
-			const applications = apps.map((app) =>
-			<tr>
-			<td>{app.status}</td>
-			<td>{app.name}</td>
-			<td>{app.date}</td>
-			<td>{app.description}</td>
-			<td>{app.url}</td>
-			<td>{app.console}</td>
-			</tr>
-			);
-			
-			varApplicationsTable = applications;
-			
+			loaded = true;
 			ReactDOM.render(
 					<LoadApplications />,
 					document.getElementById('root')
@@ -83,4 +96,8 @@ function getApplications(){
 	});
 
 }
+ReactDOM.render(
+		<LoadApplications />,
+		document.getElementById('root')
+);
 getApplications();

@@ -1,47 +1,51 @@
 package br.com.pierin.pgw.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class ApplicationBean implements Serializable{
-	private static final long serialVersionUID = 5638984652255512891L;
 	
-//	nome : 'aplicação 1',
-//	url : '10.9.8.7/app1',
-//	data : '20/08/2017',
-//	status : 'ativo',
-//	console : '10.9.8.7:6070/console',
-//	descricao : 'Descrição da aplicação 1'}
-	
-	
+	private static final long serialVersionUID = -4219940321184109530L;
+	private Integer ID;
 	private String name = "";
-	private String url = "";
-	private String date = "";
-	private String status = ""; 
+	private String uri = "";
+	private Date inclusionDate;
+	private ArrayList<StatusBean> status = new ArrayList<StatusBean>(); 
 	private String console = ""; 
 	private String description = "";
+	private Integer port;
+	private ServerBean server;
+	private String currentState;
 	
+	public Integer getID() {
+		return ID;
+	}
+	public void setID(Integer iD) {
+		ID = iD;
+	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getUrl() {
-		return url;
+	public String getUri() {
+		return uri;
 	}
-	public void setUrl(String url) {
-		this.url = url;
+	public void setUri(String uri) {
+		this.uri = uri;
 	}
-	public String getDate() {
-		return date;
+	public Date getInclusionDate() {
+		return inclusionDate;
 	}
-	public void setDate(String date) {
-		this.date = date;
+	public void setInclusionDate(Date inclusionDate) {
+		this.inclusionDate = inclusionDate;
 	}
-	public String getStatus() {
+	public ArrayList<StatusBean> getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(ArrayList<StatusBean> status) {
 		this.status = status;
 	}
 	public String getConsole() {
@@ -55,10 +59,26 @@ public class ApplicationBean implements Serializable{
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	} 
-
-
-
+	}
+	public ServerBean getServer() {
+		return server;
+	}
+	public void setServer(ServerBean server) {
+		this.server = server;
+	}
+	public Integer getPort() {
+		return port;
+	}
+	public void setPort(Integer port) {
+		this.port = port;
+	}
+	public String getCurrentState() {
+		return currentState;
+	}
+	public void setCurrentState(String currentState) {
+		this.currentState = currentState;
+	}
+	
 	
 
 }

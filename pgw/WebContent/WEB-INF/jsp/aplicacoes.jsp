@@ -5,6 +5,7 @@
   	<jsp:include page="header.jsp"></jsp:include>
     <script src="/PGW/jsx/aplicacoes.jsx" type="text/babel"></script>
     <link href="/PGW/css/aplicacoes.css" rel="stylesheet" type="text/css"></link>
+    <link href="/PGW/css/util.css" rel="stylesheet" type="text/css"></link>
   </head>
   <body>
     <div id="root"></div>

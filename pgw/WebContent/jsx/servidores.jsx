@@ -12,7 +12,11 @@ function addServer(dataPost){
 	    dataType: "json",
 	    data: dataPost,
 	    success: function (data){
-			getServers();
+	    	if(data.included){
+	    		getServers();
+	    	} else {
+	    		alert("Servidor não incluido");
+	    	}
 		},
 		error: function (data){
 			alert("Erro ao tentar incluir!");
@@ -102,14 +106,6 @@ class NewServer extends React.Component {
     );
   }
 }
-function deleteServer(){
-	function handleClick(id, e){
-		e.preventDefault();
-		alert("delete id " + id);
-		getServers();
-	}
-	
-}
 
 
 class Voltar  extends React.Component {
@@ -119,8 +115,8 @@ class Voltar  extends React.Component {
   
   render(){
     return (
-        <div class="button">
-            <a href="/PGW" class="button">Voltar</a>
+        <div className="button">
+            <a href="/PGW" className="button">Voltar</a>
         </div>
     );
   }
@@ -132,6 +128,7 @@ class LoadServers extends React.Component {
  
   constructor(props) {
     super(props);
+
   }
 
   render() {
@@ -148,15 +145,19 @@ class LoadServers extends React.Component {
           <h1>Servidores monitorados</h1>
           { loading }
 	      <table>
-		      <tr>
-		        <th>Nome do servidor</th>
-		        <th>URL</th>
-		        <th>Porta</th>
-		        <th>Usuario</th>
-		        <th>Senha</th>
-		      </tr>
-		      {varServersTable}
-		      <NewServer />
+	      	  <thead>
+			      <tr>
+			        <th>Nome do servidor</th>
+			        <th>URL</th>
+			        <th>Porta</th>
+			        <th>Usuario</th>
+			        <th>Senha</th>
+			      </tr>
+		      </thead>
+		      <tbody>
+			      {varServersTable}
+			      <NewServer />
+		      </tbody>
 	      </table>
 	      <Voltar />
       </div>
@@ -174,18 +175,18 @@ function getServers(){
 		type: "GET",
 		dataType: "json",
 		success: function (data){
-			var servers = data.servers;
+			var servers = data.serversList;
 			if (servers == null) {
 				alert(data.error);
 			}else {
 				const serversTable = servers.map((server) =>
-				<tr>
+				<tr key={server.id.toString()}>
 					<td>{server.serverName}</td>
 					<td>{server.url}</td>
 					<td>{server.port}</td>
 					<td>{server.user}</td>
 					<td>{server.password}</td>
-					<td><a href="#" onClick={(e) => this.deleteServer(id, e)} >apagar</a></td>
+					<td><a href="#" onClick="alert()" >excluir</a></td>
 				</tr>
 				);
 				

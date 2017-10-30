@@ -10,11 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.pierin.pgw.DAO.ApplicationDAO;
+import br.com.pierin.pgw.DAO.ServerDAO;
 import br.com.pierin.pgw.bean.ApplicationBean;
+import br.com.pierin.pgw.bean.ServerBean;
 import br.com.pierin.pgw.controller.AbstractController;
 
 @Controller
@@ -38,21 +43,30 @@ public class ApplicationsController extends AbstractController implements Serial
 	public Object getAllApplications(HttpServletResponse response) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
-		ArrayList<ApplicationBean> apps = new ArrayList<ApplicationBean>();
-		for (int i = 0; i < 10; i++){
-			ApplicationBean a = new ApplicationBean();
-			a.setName("app"+i);
-			a.setUrl("url"+i);
-			a.setDate("2017-10-"+i);
-			a.setStatus("status"+i);
-			a.setConsole("console"+i);
-			a.setDescription("description"+i);
-			apps.add(a);
+		ArrayList<ApplicationBean> list = new ApplicationDAO().getAllApplications();
+		if (list == null){
+			result.put("error", "Falha ao conectar com o banco de dados."); 
+		} else if (list.isEmpty()) {
+			result.put("error", "Não há aplicações cadastradas!");
+		} else {
+			result.put("appList", list);
 		}
-		result.put("apps", apps);
-		
 
 	return jsonView.render(result, response);
 	}
 
+	@RequestMapping(method = RequestMethod.POST, value = "/applications/update", consumes = "application/json;charset=UTF-8")
+	public @ResponseBody Object addNewServer(@RequestBody ApplicationBean input,
+			HttpServletResponse response) {
+
+		Map<String, Object> result = new HashMap<String, Object>();
+
+		LOG.info("Updating application description. AppID:" + input.getID()+" - " + input.getDescription());
+
+		boolean updated = new ApplicationDAO().updateApplication(input);
+		result.put("updated", updated);
+
+		return jsonView.render(result, response);
+
+	}
 }
