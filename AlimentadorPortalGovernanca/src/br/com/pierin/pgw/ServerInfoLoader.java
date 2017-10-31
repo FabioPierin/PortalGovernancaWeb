@@ -1,4 +1,4 @@
-package br.com.governance;
+package br.com.pierin.pgw;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,8 +26,8 @@ import com.ibm.websphere.management.exception.ConnectorException;
 
 public class ServerInfoLoader {
 	private static AdminClient adminClient;
-	private String workSpaceID = "";
-	private ArrayList<String> serversID = new ArrayList<String>();
+//	private String workSpaceID = "";
+//	private ArrayList<String> serversID = new ArrayList<String>();
 	private HashMap<String, Integer> ports = new HashMap<String, Integer>();
 	Session session = new Session();
 	ConfigService configService;
@@ -44,7 +44,7 @@ public class ServerInfoLoader {
 			Hashtable prefs = new Hashtable();
 
 			adminClient.getDefaultDomain();
-			ObjectName server = adminClient.getServerMBean();
+//			ObjectName server = adminClient.getServerMBean();
 			
 			getPorts();
 			
@@ -76,14 +76,14 @@ public class ServerInfoLoader {
 					}
 					
 					
-					System.out.println(proxy.listURIs(app.toString(), null, prefs, session.getSessionId()));
-					System.out.println(proxy.listModules(app.toString(), prefs, null));
-					byte[] content = proxy.getApplicationContents(app.toString(), ".settings/org.eclipse.wst.common.component", prefs, session.getSessionId());
-					String cont = new String(content, "UTF-8");
-					System.out.println(cont);
-					content = proxy.getApplicationContents(app.toString(), ".settings/org.eclipse.wst.common.project.facet.core.xml", prefs, session.getSessionId());
-					cont = new String(content, "UTF-8");
-					System.out.println(cont);
+//					System.out.println(proxy.listURIs(app.toString(), null, prefs, session.getSessionId()));
+//					System.out.println(proxy.listModules(app.toString(), prefs, null));
+//					byte[] content = proxy.getApplicationContents(app.toString(), ".settings/org.eclipse.wst.common.component", prefs, session.getSessionId());
+//					String cont = new String(content, "UTF-8");
+//					System.out.println(cont);
+//					content = proxy.getApplicationContents(app.toString(), ".settings/org.eclipse.wst.common.project.facet.core.xml", prefs, session.getSessionId());
+//					cont = new String(content, "UTF-8");
+//					System.out.println(cont);
 				}
 				
 				
