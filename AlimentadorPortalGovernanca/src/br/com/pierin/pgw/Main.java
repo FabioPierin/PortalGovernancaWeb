@@ -21,8 +21,7 @@ public class Main {
 
 		for (ServerBean server : serverList) {
 			try {
-				serverInfoLoader.loadInfo(server.getUrl(), server.getPort(),
-						server.getUser(), server.getPassword());
+				serverInfoLoader.loadInfo(server);
 			} catch (Exception e) {
 				System.out.println("Não foi possível conectar ao servidor:"
 						+ server.getUrl());

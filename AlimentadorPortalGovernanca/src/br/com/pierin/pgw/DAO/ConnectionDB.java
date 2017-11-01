@@ -19,6 +19,9 @@ public class ConnectionDB implements Serializable {
 	private static final String driver = "jdbc:oracle:thin:@//";
 	private static final String port = "1521";
 	private static ConnectionDB connection = new ConnectionDB();
+	private static final String host = "localhost";
+	private static final String userName = "ROOT";
+	private static final String password = "root";
 
 	public ConnectionDB() {
 		try {
@@ -28,7 +31,8 @@ public class ConnectionDB implements Serializable {
 		}
 	}
 	
-	public static java.sql.Connection getDbConnection(String host, String userName, String password) throws SQLException, ClassNotFoundException {
+	public static java.sql.Connection getDbConnection() throws SQLException, ClassNotFoundException {
+		
 		Connection dbConnection = null;
 		try {
 			String dbURL = driver + host +":"+ port + "/xe";

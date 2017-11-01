@@ -23,7 +23,7 @@ public class ApplicationDAO implements Serializable {
 		PreparedStatement stmt = null;
 		boolean updated = false;
 		try {
-			conn = ConnectionDB.getDbConnection("localhost", "ROOT", "root");
+			conn = ConnectionDB.getDbConnection();
 
 			String sql = "UPDATE applications where id = ? set "
 					+ "DESCRIPTION = ?";
@@ -58,7 +58,7 @@ public class ApplicationDAO implements Serializable {
 		ResultSet rs = null;
 		ResultSet rsSTATUS = null;
 		try {
-			conn = ConnectionDB.getDbConnection("localhost", "ROOT", "root");
+			conn = ConnectionDB.getDbConnection();
 			
 			String sql = "select "
 					+ "A.ID as app_id, A.APP_NAME, A.URI, A.DESCRIPTION, A.INCLUSION_DATE, A.PORT, "

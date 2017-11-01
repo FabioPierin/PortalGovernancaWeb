@@ -21,7 +21,7 @@ public class ServerDAO implements Serializable {
 		PreparedStatement stmt = null;
 		boolean inserted = false;
 		try {
-			conn = ConnectionDB.getDbConnection("localhost", "ROOT", "root");
+			conn = ConnectionDB.getDbConnection();
 
 			String sql = "INSERT INTO servers( SERVER_NAME, IP, PORT, ADM_USER, ADM_PASSWORD )"
 					+ "VALUES ( ?, ?, ?, ?, ?)";
@@ -56,7 +56,7 @@ public class ServerDAO implements Serializable {
 		ArrayList<ServerBean> serversList = new ArrayList<ServerBean>();
 		ResultSet rs = null;
 		try {
-			conn = ConnectionDB.getDbConnection("localhost", "ROOT", "root");
+			conn = ConnectionDB.getDbConnection();
 			
 			String sql = "Select * from SERVERS";
 			stmt = conn.prepareStatement(sql);
