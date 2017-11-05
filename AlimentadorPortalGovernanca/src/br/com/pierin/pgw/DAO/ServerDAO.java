@@ -28,7 +28,7 @@ public class ServerDAO implements Serializable {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, server.getServerName());
 			stmt.setString(2, server.getUrl());
-			stmt.setString(3, server.getPort());
+			stmt.setInt(3, server.getPort());
 			stmt.setString(4, server.getUser());
 			stmt.setString(5, server.getPassword());
 			inserted = stmt.execute();
@@ -50,6 +50,36 @@ public class ServerDAO implements Serializable {
 
 		return inserted;
 	}
+	public boolean update(ServerBean server) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		boolean inserted = false;
+		try {
+			conn = ConnectionDB.getDbConnection();
+			
+			String sql = "UPDATE servers set ADM_PORT=? where id=?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, server.getAdminPort());
+			stmt.setInt(2, server.getId());
+			inserted = stmt.execute();
+			inserted = true;
+		} catch (ClassNotFoundException e) {
+			LOG.error("Error saving data on DB", e);
+			e.printStackTrace();
+		} catch (SQLException e) {
+			LOG.error("Error saving data on DB", e);
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				LOG.error("Unable to close the connection with DB.", e);
+				e.printStackTrace();
+			}
+		}
+		
+		return inserted;
+	}
 	public ArrayList<ServerBean> getAllServers() {
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -66,7 +96,8 @@ public class ServerDAO implements Serializable {
 				server.setId(rs.getInt("ID"));
 				server.setUrl(rs.getString("IP"));
 				server.setServerName(rs.getString("SERVER_NAME"));
-				server.setPort(rs.getString("PORT"));
+				server.setPort(rs.getInt("PORT"));
+				server.setAdminPort(rs.getInt("ADM_PORT"));
 				server.setUser(rs.getString("ADM_USER"));
 				server.setPassword(rs.getString("ADM_PASSWORD"));
 				serversList.add(server);
@@ -96,7 +127,7 @@ public class ServerDAO implements Serializable {
 		ServerDAO ser = new ServerDAO();
 		ServerBean servBean = new ServerBean();
 		servBean.setPassword("pass123");
-		servBean.setPort("666");
+		servBean.setPort(666);
 		servBean.setUrl("www.123");
 		servBean.setUser("user");
 		ser.insertServer(servBean);

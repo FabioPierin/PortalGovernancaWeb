@@ -14,6 +14,7 @@ import javax.management.AttributeNotFoundException;
 import javax.management.ObjectName;
 
 import br.com.pierin.pgw.DAO.ApplicationDAO;
+import br.com.pierin.pgw.DAO.ServerDAO;
 import br.com.pierin.pgw.bean.ApplicationBean;
 import br.com.pierin.pgw.bean.ServerBean;
 
@@ -47,6 +48,11 @@ public class ServerInfoLoader {
 
 		getPorts();
 
+		if ( server.getAdminPort() == null || server.getAdminPort() != ports.get("admin_host")){
+			server.setAdminPort(ports.get("admin_host"));
+			new ServerDAO().update(server);
+		}
+		
 		AppManagement proxy = AppManagementProxy
 				.getJMXProxyForClient(adminClient);
 		Vector<?> applications = proxy.listApplications(prefs, null);
@@ -129,14 +135,14 @@ public class ServerInfoLoader {
 	}
 
 
-	private void createAdminClient(String address, String port, String user,
+	private void createAdminClient(String address, Integer port, String user,
 			String password) {
 		// Set up a Properties object for the JMX connector attributes
 		Properties connectProps = new Properties();
 		connectProps.setProperty(AdminClient.CONNECTOR_TYPE,
 				AdminClient.CONNECTOR_TYPE_SOAP);
 		connectProps.setProperty(AdminClient.CONNECTOR_HOST, address);
-		connectProps.setProperty(AdminClient.CONNECTOR_PORT, port);
+		connectProps.setProperty(AdminClient.CONNECTOR_PORT, port.toString());
 		connectProps.setProperty(AdminClient.USERNAME, user);
 		connectProps.setProperty(AdminClient.PASSWORD, password);
 		try {

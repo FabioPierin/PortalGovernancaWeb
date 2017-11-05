@@ -17,6 +17,7 @@ public class ApplicationBean implements Serializable{
 	private Integer port;
 	private ServerBean server;
 	private String currentState;
+
 	
 	public Integer getID() {
 		return ID;
