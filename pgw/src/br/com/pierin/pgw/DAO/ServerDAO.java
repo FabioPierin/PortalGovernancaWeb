@@ -28,7 +28,7 @@ public class ServerDAO implements Serializable {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, server.getServerName());
 			stmt.setString(2, server.getUrl());
-			stmt.setString(3, server.getPort());
+			stmt.setInt(3, server.getPort());
 			stmt.setString(4, server.getUser());
 			stmt.setString(5, server.getPassword());
 			inserted = stmt.execute();
@@ -66,7 +66,8 @@ public class ServerDAO implements Serializable {
 				server.setId(rs.getInt("ID"));
 				server.setUrl(rs.getString("IP"));
 				server.setServerName(rs.getString("SERVER_NAME"));
-				server.setPort(rs.getString("PORT"));
+				server.setPort(rs.getInt("PORT"));
+				server.setAdminPort(rs.getInt("ADM_PORT"));
 				server.setUser(rs.getString("ADM_USER"));
 				server.setPassword(rs.getString("ADM_PASSWORD"));
 				serversList.add(server);
@@ -91,14 +92,4 @@ public class ServerDAO implements Serializable {
 		return serversList;
 	}
 
-	public static void main(String[] args) {
-		System.out.println("testing DB");
-		ServerDAO ser = new ServerDAO();
-		ServerBean servBean = new ServerBean();
-		servBean.setPassword("pass123");
-		servBean.setPort("666");
-		servBean.setUrl("www.123");
-		servBean.setUser("user");
-		ser.insertServer(servBean);
-	}
 }

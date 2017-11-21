@@ -56,7 +56,7 @@ public class ApplicationsController extends AbstractController implements Serial
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/applications/update", consumes = "application/json;charset=UTF-8")
-	public @ResponseBody Object addNewServer(@RequestBody ApplicationBean input,
+	public @ResponseBody Object updateApplication(@RequestBody ApplicationBean input,
 			HttpServletResponse response) {
 
 		Map<String, Object> result = new HashMap<String, Object>();

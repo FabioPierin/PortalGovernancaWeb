@@ -41,15 +41,12 @@ class LoadApplications extends React.Component {
 				<tr>
 					<th>Status</th>
 					<th>Nome aplicação</th>
-					<th>Data ativação/desativação</th>
-					<th>Descrição</th>
+					<th>Data inclusão</th>
 					<th>URL de acesso</th>
 					<th>Console administrativo</th>
 				</tr>
 			</thead>
-			<tbody>
-				{varApplicationsTable}
-			</tbody>
+			<tbody>{varApplicationsTable}</tbody>
 		</table>
 		<ManageServer />
 	</div>
@@ -73,12 +70,22 @@ function getApplications(){
 			}else {
 				const applications = apps.map((app) =>
 				<tr key={app.id.toString()}>
-					<td>{app.currentState}</td>
+					<td className="status">{app.currentState}
+						<div className="tooltip">
+							<div id="triangle-left"></div>
+							<p>Tempo disponível: {app.percentOnline}% {app.currentState == 'A' ? "" : <span> antes de última inativação </span>}</p>
+							<p>{app.currentState == 'A' ?  <span className='ativo'>Ativo</span> : <span className='inativo'>Inativo</span>} desde {app.lastStatusChange}</p>
+							<ul>
+							{app.status.map((st) => 
+								<li>{st.status == 'A' ? "Ativado em " : "Inativado em "} {st.changed_at} </li>)
+							}
+							</ul>
+						</div>
+					</td>
 					<td>{app.name}</td>
 					<td>{app.inclusionDate}</td>
-					<td>{app.description}</td>
-					<td><a target="_blanc" href='{app.server.url}:{app.port}{app.uri}'>{app.server.url}:{app.port}{app.uri}</a></td>
-					<td><a target="_blanc" href='{app.server.url}:{app.server.port}'>{app.server.url}:{app.server.port}</a></td>
+					<td><a target="_blanc" href={'http://' + app.server.url + ':' + app.port + app.uri} >{app.server.url + ':' + app.port + app.uri}</a></td>
+					<td><a target="_blanc" href={'http://' + app.server.url + ':' + app.server.adminPort + '/ibm/console'} >{app.server.url + ':' + app.server.adminPort + '/ibm/console'}</a></td>
 				</tr>
 				);
 				

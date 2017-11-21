@@ -136,12 +136,13 @@ public class ServerInfoLoader {
 
 
 	private void createAdminClient(String address, Integer port, String user,
-			String password) {
+			String password) throws Exception {
 		// Set up a Properties object for the JMX connector attributes
 		Properties connectProps = new Properties();
 		connectProps.setProperty(AdminClient.CONNECTOR_TYPE,
 				AdminClient.CONNECTOR_TYPE_SOAP);
-		connectProps.setProperty(AdminClient.CONNECTOR_HOST, address);
+		connectProps.setProperty(AdminClient.CONNECTOR_SECURITY_ENABLED, address.startsWith("https")? "true":"false");
+		connectProps.setProperty(AdminClient.CONNECTOR_HOST, address.replace("https://", ""));
 		connectProps.setProperty(AdminClient.CONNECTOR_PORT, port.toString());
 		connectProps.setProperty(AdminClient.USERNAME, user);
 		connectProps.setProperty(AdminClient.PASSWORD, password);
@@ -149,7 +150,7 @@ public class ServerInfoLoader {
 			adminClient = AdminClientFactory.createAdminClient(connectProps);
 		} catch (ConnectorException e) {
 			System.out.println("Exception creating admin client: " + e);
-			System.exit(-1);
+			throw new Exception(e);
 		}
 
 		System.out.println("Connected to DeploymentManager");

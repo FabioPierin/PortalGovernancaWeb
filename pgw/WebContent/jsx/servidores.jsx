@@ -149,7 +149,7 @@ class LoadServers extends React.Component {
 			      <tr>
 			        <th>Nome do servidor</th>
 			        <th>URL</th>
-			        <th>Porta</th>
+			        <th>Porta SOAP</th>
 			        <th>Usuario</th>
 			        <th>Senha</th>
 			      </tr>

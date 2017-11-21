@@ -62,7 +62,7 @@ public class ApplicationDAO implements Serializable {
 			
 			String sql = "select "
 					+ "A.ID as app_id, A.APP_NAME, A.URI, A.DESCRIPTION, A.INCLUSION_DATE, A.PORT, "
-					+ "s.ID as serv_ID, s.SERVER_NAME, s.IP, s.PORT as adm_port, s.ADM_USER, s.ADM_PASSWORD  "
+					+ "s.ID as serv_ID, s.SERVER_NAME, s.IP, s.PORT as serv_port, s.adm_port, s.ADM_USER, s.ADM_PASSWORD  "
 					+ "from APPLICATIONS a, SERVERS s where a.server_id = s.id";
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
@@ -80,13 +80,15 @@ public class ApplicationDAO implements Serializable {
 					sb.setStatus(rsSTATUS.getString("status"));
 					sb.setChanged_at(rsSTATUS.getDate("CHANGED_AT"));
 					app.setCurrentState(rsSTATUS.getString("status"));
+					app.setLastStatusChange(rsSTATUS.getDate("CHANGED_AT"));
 					app.getStatus().add(sb);
 				}
 				
 				server.setId(rs.getInt("SERV_ID"));
 				server.setServerName(rs.getString("SERVER_NAME"));
 				server.setUrl(rs.getString("IP"));
-				server.setPort(rs.getString("adm_port"));
+				server.setPort(rs.getInt("serv_port"));
+				server.setAdminPort(rs.getInt("adm_port"));
 				app.setID(rs.getInt("APP_ID"));
 				app.setName(rs.getString("APP_NAME"));
 				app.setUri(rs.getString("URI"));

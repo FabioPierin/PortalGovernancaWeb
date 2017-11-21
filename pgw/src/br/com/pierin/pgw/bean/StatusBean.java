@@ -3,7 +3,7 @@ package br.com.pierin.pgw.bean;
 import java.io.Serializable;
 import java.util.Date;
 
-public class StatusBean implements Serializable{
+public class StatusBean implements Serializable, Comparable<StatusBean>{
 
 	private static final long serialVersionUID = -7626082998135258101L;
 	private Date changed_at;
@@ -20,6 +20,16 @@ public class StatusBean implements Serializable{
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	@Override
+	public int compareTo(StatusBean o) {
+		if (this.changed_at.before(o.getChanged_at())){
+			return -1;
+		}
+		if (this.changed_at.after(o.getChanged_at())){
+			return 1;
+		}
+		return 0;
 	}
 
 	

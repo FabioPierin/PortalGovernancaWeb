@@ -29,7 +29,8 @@ public class ServerBean implements Serializable{
 	/**
 	 * PORT column 
 	 */
-	private String port;
+	private Integer port;
+	private Integer adminPort;
 	/**
 	 * SERVER_NAME column 
 	 */
@@ -67,14 +68,14 @@ public class ServerBean implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getPort() {
+	public Integer getPort() {
 		return port;
 	}
 	/**
 	 *  Value of PORT column
 	 * @param port
 	 */
-	public void setPort(String port) {
+	public void setPort(Integer port) {
 		this.port = port;
 	}
 	public String getServerName() {
@@ -92,6 +93,12 @@ public class ServerBean implements Serializable{
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public Integer getAdminPort() {
+		return adminPort;
+	}
+	public void setAdminPort(Integer adminPort) {
+		this.adminPort = adminPort;
 	} 
 	
 	

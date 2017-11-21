@@ -19,9 +19,6 @@ public class PGWController extends AbstractController  implements Serializable{
 	private static final long serialVersionUID = 1759784568515280418L;
 
 	static Logger LOG = Logger.getLogger(PGWController.class);
-	private static final String HTTP_BASE = "w3c.hostname";
-	protected static final String HTTP_BUSINESSCARD_API = "w3c.businesscard.integration.url";
-	protected static final String HTTPS = "http://";
 
 
 	@Autowired
